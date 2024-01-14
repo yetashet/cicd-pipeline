@@ -9,13 +9,13 @@ pipeline {
 
     stage('App Build') {
       steps {
-        sh 'script scripts/build.sh'
+        sh 'scripts/build.sh'
       }
     }
 
     stage('Tests') {
       steps {
-        sh 'script scripts/test.sh'
+        sh 'scripts/test.sh'
       }
     }
 
@@ -38,7 +38,7 @@ pipeline {
     }
 
   }
- environment {
+  environment {
     DOCKER_CREDS = credentials('dockerhub_id')
- }
+  }
 }
