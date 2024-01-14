@@ -23,15 +23,21 @@ pipeline {
             }
         }
 
-        stage('Node.js App Build') {
-            steps {
-                script {
-                  sh 'docker build -t yediltashet/jenkins_image .'
-                  sh 'echo $DOCKER_CREDS_PSW | docker login -u $DOCKER_CREDS_USR --password-stdin docker.io'
-                  sh 'docker push yediltashet/jenkins_image'
-                  sh 'docker logout' 
-                }
-            }
+    stage('Docker image build') {
+      steps {
+        sh 'docker build -t yediltashet/jenkins_image:$BUILD_NUMBER .'
+      }
+    }
+    stage('Docker image deploy') {
+      steps {
+        script {
+          docker.withRegistry('', 'dockerhub-id')
+          {
+            docker.image("yediltashet/jenkins_image:$env.BUILD_NUMBER").push("latest")
+          }
         }
+
+      }
+    }    
     }
 }
