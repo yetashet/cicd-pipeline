@@ -1,12 +1,12 @@
 pipeline {
     agent any
     environment {     
-        DOCKERHUB_CREDENTIALS= credentials('hello')     
+        DOCKER_CREDS= credentials('dockerhub_id')     
     }    
     stages {
         stage('Git Checkout') {
             steps {
-                  git branch: 'main', url: 'https://github.com/Bakhytgul123/cicd-pipeline.git'
+                  git branch: 'main', url: 'https://github.com/yetashet/cicd-pipeline.git'
 
             }
         }
@@ -26,9 +26,9 @@ pipeline {
         stage('Node.js App Build') {
             steps {
                 script {
-                  sh 'docker build -t bakhazhi/jenkins_cicd_test_image .'
-                  sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin docker.io'
-                  sh 'docker push bakhazhi/jenkins_cicd_test_image'
+                  sh 'docker build -t yediltashet/jenkins_image .'
+                  sh 'echo $DOCKER_CREDS_PSW | docker login -u $DOCKER_CREDS_USR --password-stdin docker.io'
+                  sh 'docker push yediltashet/jenkins_image'
                   sh 'docker logout' 
                 }
             }
