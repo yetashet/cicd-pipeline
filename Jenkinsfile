@@ -1,9 +1,9 @@
 pipeline {
   agent any
   stages {
-    stage('Build') {
+    stage('Git Checkout') {
       steps {
-        sh 'scripts/build.sh'
+        git(branch: 'main', url: 'https://github.com/yetashet/cicd-pipeline.git')
       }
     }
 
