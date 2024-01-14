@@ -38,7 +38,7 @@ pipeline {
     }
 
   }
-  environment {
-    DOCKER_CREDS = credentials('dockerhub_id')
-  }
+ #environment {
+ #   DOCKER_CREDS = credentials('dockerhub_id')
+ # }
 }
