@@ -27,15 +27,13 @@ pipeline {
 
     stage('Docker image deploy') {
       steps {
-        script {
-          docker.withRegistry('', 'dockerhub-id')
-          {
-            docker.image("yediltashet/jenkins_image:$env.BUILD_NUMBER").push("latest")
-          }
-        }
-
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin docker.io'
+        sh 'docker push yediltashet/jenkins_image:$BUILD_NUMBER'
       }
     }
 
+  }
+  environment {
+    DOCKERHUB_CREDENTIALS = 'dockerhub_id'
   }
 }
