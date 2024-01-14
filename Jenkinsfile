@@ -9,12 +9,14 @@ pipeline {
 
     stage('App Build') {
       steps {
+        sh 'chmod +x 'scripts/build.sh'
         sh 'scripts/build.sh'
       }
     }
 
     stage('Tests') {
       steps {
+        sh 'chmod +x 'scripts/test.sh'
         sh 'scripts/test.sh'
       }
     }
@@ -38,7 +40,7 @@ pipeline {
     }
 
   }
- #environment {
- #   DOCKER_CREDS = credentials('dockerhub_id')
- # }
+ environment {
+    DOCKER_CREDS = credentials('dockerhub_id')
+ }
 }
